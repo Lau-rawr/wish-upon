@@ -1,17 +1,48 @@
-import React from 'react';
+import React, { Component }  from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router";
 import AuthOptions from './AuthOptions';
 
+export default class Navbar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            menu: false
+        };
+        this.toggleMenu = this.toggleMenu.bind(this);
+    }
+    toggleMenu() {
+        this.setState({ menu: !this.state.menu })
+    }
 
-function Navbar(props) {
-    return (
-        <header id="navbar">
-            <Link to="/home"><h1 className= "title">Wish-Upon</h1></Link> 
-            <AuthOptions />
-        </header>
-      );
-  
+    render() {
+        const show = (this.state.menu) ? "show" : "" ;
+    return(
+        // <nav class="navbar navbar-expand-lg">
+        //     <Link to="/home" class="navbar-brand">Wish Upon a Star</Link>
+        //     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        //         <span class="navbar-toggler-icon"></span>
+        //     </button>
+        //     <div class="collpase navbar-collapse" id="navbarNav">
+        //         <ul class="navbar-nav nav-pills ml-auto">
+        //             <AuthOptions />
+        //         </ul>
+        //     </div>
+        // </nav>
+
+        <nav class = "navbar navbar-expand-lg" >
+            <Link to="/home" class="navbar-brand">Wish Upon a Star</Link>
+            <button class="navbar-toggler custom-toggler" onClick={() => this.toggleMenu()} type="button" data-toggle="collapse" data-target=".navbar-nav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class={"collapse navbar-collapse " + show} id="navbarNav">
+                <ul class="navbar-nav nav-pills ml-auto">
+                    <AuthOptions />
+                </ul>
+            </div>
+        </nav>
+    )
+    }
 }
 
-export default withRouter(Navbar);
+// export default withRouter(Navbar);
