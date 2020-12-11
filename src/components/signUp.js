@@ -19,10 +19,10 @@ export default function Register(){
     try{
       const newUser = {username, password, passwordCheck};
       await axios.post(
-        "http://localhost:5000/users/add", 
+        "/users/add", 
         newUser
       );
-      const loginRes = await axios.post("http://localhost:5000/users/login", {
+      const loginRes = await axios.post("/users/login", {
         username,
         password,
       });
@@ -36,49 +36,9 @@ export default function Register(){
       err.response.data.msg && setError(err.response.data.msg);
     }
   };
-  //   constructor(props) {
-  //     super(props);
 
 
-  //     this.onChangeUsername = this.onChangeUsername.bind(this);
-  //     this.onChangePassword = this.onChangePassword.bind(this);
-  //     this.onSubmit = this.onSubmit.bind(this);
 
-  //     this.state = {
-  //     username: '',
-  //     password: ''
-  //     }
-  //   }
-
-  // onChangeUsername(e) {
-  //   this.setState({
-  //     username: e.target.value
-  //   })
-  // }
-
-  // onChangePassword(e) {
-  //   this.setState({
-  //     password: e.target.value
-  //   })
-  // }
-
-  // onSubmit(e) {
-  //   e.preventDefault();
-
-  //   const user = {
-  //     username: this.state.username,
-  //     password: this.state.password
-  //   }
-
-  //   console.log(user);
-
-  //   axios.post('http://localhost:5000/users/add', user)
-  //     .then(res => console.log(res.data));
-
-  //   window.location = '/';
-  // }
-
-  // render() {
     return(
       <section>
         <div className="container">
@@ -118,35 +78,3 @@ export default function Register(){
       </section>
     )
   } 
-
-//   return (
-//       <div className="page">
-//         <h2>Register</h2>
-//         <form onSubmit={submit}>
-//             <label htmlFor="register-username">Username</label>
-//             <input 
-//               id="register-username" 
-//               type = "text" 
-//               required 
-//               onChange={(e) => setUsername(e.target.value)}
-//             />
-
-//             <label htmlFor="register-password">Password</label>
-//             <input 
-//               id="register-password" 
-//               type = "password" 
-//               required
-//               onChange={(e) => setPassword(e.target.value)}
-//             />
-
-//             <input type = "password" 
-//               placeholder="Verify password" 
-//               required
-//               onChange={(e) => setPasswordCheck(e.target.value)}
-//             />
-
-//             <input type= "submit" value="Register" />
-//         </form>
-//       </div>
-//   );
-// }
