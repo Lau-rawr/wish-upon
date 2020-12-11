@@ -29,7 +29,7 @@ export default function UserImageCard(props) {
         .then( async(willDelete) => {
             if (willDelete) {
                 await axios.delete(
-                    `http://localhost:5000/user_images/${id}`,
+                    `/user_images/${id}`,
                     { headers: { "x-auth-token": userData.token } },
                 );  
             }
@@ -50,69 +50,3 @@ export default function UserImageCard(props) {
         </div>
     )
 }
-
-
-// export default function UserImageCard(props) {
-
-//     let image = props.userImage
-//     console.log(image)
-//     // const history = useHistory();
-
-//     // const showFeatured = () => {
-//     //     history.push(`/featuredimage/${props.userImage.id}`)   
-//     // }
-
-
-//     return(
-//         <div className="image-card">
-//             <h4>{image.component}</h4>
-//             {/* <div className="image-container"> */}
-                // <ColoredInImage component={image.component} onFill={()=>{}} fillColors={image.fill_colors}/>
-//             {/* </div>   */}
-//             {/* <button onClick={showFeatured}>View Image</button>  */} 
-//         </div>
-//     )
-
-// }
-
-
-// import React, {useState, useEffect, useContext, useRef} from "react";
-// const {userData} = useContext(UserContext);
-// import { useHistory } from "react-router-dom";
-// // import ColoredInImage from "./images/coloredInImage";
-// import Stitch from "../components/images/stitch.js";
-
-// export default function UserImageCard(props) {
-
-//     let image = props.userImage
-//     console.log(image)
-//     // const history = useHistory();
-
-//     // const showFeatured = () => {
-//     //     history.push(`/featuredimage/${props.userImage.id}`)   
-//     // }
-//     const components = {
-//         "stitch": Stitch
-//     }
-
-//    const ColorImage = components[image.component]
-
-//     return(
-//         <div className="image-card">
-//             {/* <h4>{image.component}</h4> */}
-//             {/* <div className="image-container"> */}
-//                 <ColorImage component={image.component} onFill={()=>{}} fillColors={image.fill_colors}/>
-//             {/* </div>   */}
-//             {/* <button onClick={showFeatured}>View Image</button>  */} 
-//         </div>
-//     )
-
-// }
-
-
-//             {/* <h4>{image.component}</h4> */}
-//             {/* <div className="image-container"> */}
-// {/*             <button onClick={() => fetchItems()} >Get</button> */}
-// {/*             <ColorImage component={image.component} onFill={()=>{}} fillColors={image.fill_colors}/> */}
-//             {/* </div>   */}
-//             {/* <button onClick={showFeatured}>View Image</button>  */} 
