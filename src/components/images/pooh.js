@@ -5,11 +5,11 @@ import {useHistory} from "react-router-dom";
 export default class Pooh extends React.Component {
     render () {
         return (
-<div className="colored-image" id={this.props.size}>
+<div className="pooh" id={this.props.size}>
 <svg
    viewBox="0 0 210 297"
    id="Layer_1"
-   data-name="colored-image"
+   data-name="Layer 1"
    version="1.1"
    >
   <defs
