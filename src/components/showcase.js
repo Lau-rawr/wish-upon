@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import UserContext from "../context/UserContext";
 import axios from 'axios';
 import ShowcaseImageCard from '../components/showcaseImageCard';
+import { useHistory } from "react-router-dom";
 export default function UserGallery() {
     //const images = useRef([{}]);
     const [allImages, addAllImages] = useState([{}]);
-    const { userData } = useContext(UserContext);
+    const history = useHistory();
 
     useEffect(() => {
         const fetchItems = async () => {
@@ -19,13 +19,23 @@ export default function UserGallery() {
     })
 
     return (
-        <div id="my-gallery">
-            <h1>Image Showcase</h1>
-            {allImages.map((image, i) => {
-                return (
-                    <ShowcaseImageCard id="my-image-card" key={image._id} userImage={image} />
-                )
-            })}
-        </div>
+        <>
+            <h1>Artworks Showcase</h1>
+            <div class="image-gallery">
+                {allImages.length === 0 ?
+                    <div class="btn-group" id="coloring">
+                        <button class="color-me" onClick={() => history.push('/imageGallery')}>Start coloring now!</button>
+                    </div>
+                    :
+                    <>
+                        {allImages.map((image, i) => {
+                            return (
+                                <ShowcaseImageCard size="small" id="my-image-card" key={image._id} userImage={image} />
+                            )
+                        })}
+                    </>
+                }
+            </div>
+        </>
     );
 }
