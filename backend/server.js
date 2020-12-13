@@ -36,6 +36,15 @@ app.use('/users', usersRouter);
 app.use('/user_images', userImageRouter);
 app.use('/image', imageTwoRouter);
 
+// for heruko
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static('../build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(_dirname, '..', 'build', "index.html"));
+  });
+};
+
 app.listen(port, () => { //starts the server
     console.log(`Server is running on port: ${port}`);
 });
