@@ -14,14 +14,12 @@ export default function ImageDownload(props) {
   const history = useHistory();
 
   useEffect(() => {
-    // getting user image object from database using the object id
     const fetchItems = async () => {
       if (!fetched) {
         const response = await axios.get(
-          `http://localhost:5000/user_images/${id}`,
+          `/user_images/${id}`,
           { headers: { "x-auth-token": userData.token } },
         );
-        // set the user image 
         setUserImage(response.data)
         setFetched(true)
       }
@@ -36,16 +34,16 @@ export default function ImageDownload(props) {
     })
       .then((toDownload) => {
         if (toDownload) {
-          saveSvgAsPng(document.getElementById("colored-image"), "colored-image.png");
+          saveSvgAsPng(document.getElementById("Layer_1"), `${userImage.component}.png`);
         }
         history.push("/userGallery")
       });
   }
 
   return (
-    <div className="image-card">
+    <>
       <ColoredInImage size="large" key={userImage._id} component={userImage.component} fillColors={userImage.fill_colors} />
       {saveImage()}
-    </div>
+    </>
   )
 }
