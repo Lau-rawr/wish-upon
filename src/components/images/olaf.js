@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from "react";
+import React from "react";
 
 
 export default class Olaf extends React.Component {
@@ -10,7 +10,6 @@ export default class Olaf extends React.Component {
    id="Layer_1"
    data-name="Layer 1"
    viewBox="0 0 1204.95 1468"
-   width="500.000000pt" height="500.000000pt"
    version="1.1">
   <metadata
      id="metadata365">
