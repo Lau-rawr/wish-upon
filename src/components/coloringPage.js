@@ -1,25 +1,19 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useState, useContext, useEffect, useCallback, Fragment } from "react";
 import { useParams, useHistory } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
+
 import ColoredInImage from "./images/coloredInImage";
 import ColorPalette from '../components/colorPalette'
 import UserContext from "../context/UserContext";
-import Stitch from "./images/stitch";
-import Minnie from "./images/minnie";
 import axios from 'axios';
 import swal from 'sweetalert';
-
-// const components = {
-//     "stitch": Stitch
-// }
+import PopoverPicker from "../components/PopoverPicker";
 
 export default function ColoringPage() {
 
     // object id of the user image (different for each copy of the smae image)
     let { id } = useParams();
-    console.log({ id })
     const [userImage, setUserImage] = useState({});
-    const [color, setColor] = useState("blue");
+    const [color, setColor] = useState('#C53151');
     const [fetched, setFetched] = useState(false);
     const history = useHistory();
 
@@ -30,7 +24,9 @@ export default function ColoringPage() {
         const fetchItems = async () => {
             if (!fetched) {
                 const response = await axios.get(
+
                     `http://localhost:5000/user_images/${id}`,
+
                     { headers: { "x-auth-token": userData.token } },
                 );
                 // set the user image 
@@ -54,7 +50,9 @@ export default function ColoringPage() {
         console.log(userImage)
         try {
             const response = await axios.post(
+
                 `http://localhost:5000/user_images/${id}`,
+
                 userImage,
                 { headers: { "x-auth-token": userData.token } },
             );
@@ -74,20 +72,40 @@ export default function ColoringPage() {
             text: "This cannot be reversed.",
             buttons: true
         })
-        .then(async(willDelete) => {
-            if (willDelete) {
-                await axios.delete(
-                    `http://localhost:5000/user_images/${id}`,
-                    { headers: { "x-auth-token": userData.token } },
-                );
-            }
-        })
-        .then(
-            history.push("/userGallery")   
-        )
+            .then(async (toDelete) => {
+                if (toDelete) {
+                    await axios.delete(
+
+                        `http://localhost:5000/user_images/${id}`,
+
+                        { headers: { "x-auth-token": userData.token } },
+                    )
+                        .then(history.push("/imageGallery"))
+                }
+            })
     }
 
-    const resetColors = async(id) => {
+    const showcaseImage = async (id) => {
+        userImage.public = userImage.public === true ? userImage.public = false : userImage.public = true
+
+        setUserImage({
+            ...userImage
+        })
+        try {
+            const response = await axios.post(
+
+                `http://localhost:5000/user_images/add/${id}`,
+
+                userImage,
+                { headers: { "x-auth-token": userData.token } },
+            );
+            console.log(response);
+        } catch (err) {
+            console.log("Unable to save");
+        }
+    }
+
+    const resetColors = async (id) => {
         let newFillColors = ["white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white"]
         userImage.fill_colors = newFillColors
         setUserImage({
@@ -96,7 +114,9 @@ export default function ColoringPage() {
 
         try {
             const response = await axios.post(
+
                 `http://localhost:5000/user_images/${id}`,
+
                 userImage,
                 { headers: { "x-auth-token": userData.token } },
             );
@@ -107,121 +127,27 @@ export default function ColoringPage() {
     }
 
     return (
-        <div className="coloring-page">
-            <div id="coloring-image-container" >
-                <ColoredInImage size="large" key={userImage._id} component={userImage.component} onFill={onFillColor} fillColors={userImage.fill_colors} />
+              <Fragment >
+            <div id="cursor">
+            <div class="row" id="coloring-card">
+                <div class="col-md-9 mb-3 mb-md-0">
+                {/* <div class="coloring-card"> */}
+                    <ColoredInImage size="large" key={userImage._id} component={userImage.component} onFill={onFillColor} fillColors={userImage.fill_colors} />
+                </div>
+                
+                <div class="col-md-3 mb-3 mb-md-0">
+                {/* <div className="coloring-area"> */}
+                    <ColorPalette currentColor={color} changeColor={setColor} />
+                    <PopoverPicker currentColor={color} changeColor={setColor} />
+                </div>
             </div>
-            <ColorPalette currentColor={color} changeColor={setColor} />
-            <button onClick={() => deleteImage(userImage._id)}>Delete</button> |
-            <button onClick={() => resetColors(userImage._id)}>Reset</button> |
-            <button onClick={() => {history.push("/userGallery")}}>Done</button>
-        </div>
+            <div class="btn-group flex-wrap" id="coloring">
+                <button class="delete" onClick={() => deleteImage(userImage._id)}>Delete</button>
+                <button class="reset" onClick={() => resetColors(userImage._id)}>Reset</button>
+                <button onClick={() => showcaseImage(userImage._id)} class={userImage.public ? "showcasing" : "unpublished"}>{userImage.public ? "Showcasing" : "Unpublished"}</button>
+                <button class="done" onClick={() => { history.push("/userGallery") }}>Done</button>
+            </div>
+            </div>
+        </Fragment>
     )
 }
-
-
-
-// import React, {useState, useContext, useEffect, useCallback} from "react";
-// import {useParams, useHistory} from 'react-router-dom';
-// // import { useSelector } from 'react-redux';
-// import ColoredInImage from "./images/coloredInImage";
-// import ColorPalette from '../components/colorPalette'
-// import UserContext from "../context/UserContext";
-// import Stitch from "./images/stitch";
-// import Minnie from "./images/minnie";
-// import axios from 'axios';
-
-// // const components = {
-// //     "stitch": Stitch
-// // }
-
-// export default function ColoringPage() {
-
-//     // object id of the user image (different for each copy of the smae image)
-//     let {id} = useParams();
-//     console.log({id})
-//     const [userImage, setUserImage] = useState({});
-//     const [color, setColor] = useState("blue");
-//     const [fetched, setFetched] = useState(false);
-//     // const [ColorImage, setColorImage] = useState();
-//     const history = useHistory();
-
-//     const {userData} = useContext(UserContext);
-
-//     useEffect(() => {
-//         // getting user image object from database using the object id
-//         const fetchItems = async () => {
-//             if (!fetched) {
-//                 const response = await axios.get(
-//                     `http://localhost:5000/user_images/${id}`, 
-//                     {headers: {"x-auth-token": userData.token}},
-//                 );
-//                 // set the user image 
-//                 setUserImage(response.data)
-//                 // setColorImage(components[userImage.component])
-//                 console.log(response.data)
-//                 setFetched(true)
-//             }
-//           }
-//         fetchItems();  
-//     })
-
-//     const onFillColor = async (i) => {
-//         let newFillColors = userImage.fill_colors.slice(0)
-//         newFillColors[i] = color 
-
-//         setUserImage({
-//             ...userImage,
-//             fill_colors: newFillColors
-//         })
-
-//         console.log(userImage)
-//         try{
-//             //var token = JSON.parse(localStorage.getItem("auth-token"));
-//             const response = await axios.post(
-//             `http://localhost:5000/user_images/${id}`, 
-//             userImage,
-//               {headers: {"x-auth-token": userData.token}},
-//             );
-//             console.log(response);
-//         } catch(err){
-//             console.log("no");
-//           }
-
-//         // const response = axios.post(
-//         //     `http://localhost:5000/user_images/${id}`, 
-//         //     {headers: {"x-auth-token": userData.token}},
-//         //     userImage,
-//         // );
-//         // console.log(response)
-
-//     //     fetch(`https://color-by-nature-api.herokuapp.com/user_images/${id}`,{
-//     //         method: 'PATCH',
-//     //         headers: {
-//     //             'Content-Type': 'application/json',
-//     //             'Authorization': `bearer ${token}`},
-//     //         body: JSON.stringify({id: userImage.id, fill_colors: newFillColors})
-//     //     })
-//     //     .then(r => r.json())
-//     //     .then(console.log)   
-//     }
-
-//     return(
-//         <div className="coloring-page">
-//             <ColorPalette currentColor={color} changeColor={setColor} />
-//             <div id="coloring-image-container" > 
-//                 <ColoredInImage size="large" component={userImage.component} onFill={onFillColor} fillColors={userImage.fill_colors}/>
-//                 {/* <ColoredInImage size="large" component={userImage.component} onFill={onFillColor} fillColors={userImage.fill_colors}/> */}
-//                 {/* <ColorImage id="svg-image" onFillColor={onFillColor} fillColors={userImage.fill_colors} />    */}
-//                 {/* <p class="auto-save-text" >* This image will save automatically, so color away! <span role='img' aria-label='thumbs up emoji'>👍</span></p> */}
-//             </div>
-//             {/* <div className="image-description">
-//                 <h2 id="description-heading" >{currentImage.national_park} National Park</h2>
-//                 <hr />
-//                 <p><b>Established:</b> {currentImage.year}</p>
-//                 <p><b>Location:</b> {currentImage.location}</p>
-//                 <p>{currentImage.description}</p>    
-//             </div>  */}
-//         </div>
-//      )
-// }
