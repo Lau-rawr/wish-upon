@@ -1,14 +1,14 @@
 // in order to access user
-import React, {useContext} from 'react';
+import React, { Fragment, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { Link } from 'react-router-dom';
 
 export default function AuthOptions() {
-    const {userData, setUserData} = useContext(UserContext);
+    const { userData, setUserData } = useContext(UserContext);
     const history = useHistory();
     const register = () => history.push("/signUp");
-    const login = () => history.push("/");
+    const login = () => history.push("/signIn");
 
     const logout = () => {
         setUserData({
@@ -20,21 +20,22 @@ export default function AuthOptions() {
     };
 
     return (
-        <nav className="auth-options">
-        {userData.user ? (
-            <>
-            <Link to="/userGallery">Your Gallery </Link>
-            <Link to="/imageGallery">Image Gallery </Link>
-            <Link to="/showcase">Showcase</Link>
-            <button onClick={logout}>Log Out</button>
-            </>
-        ) : (
-            <>
-            <Link to="/imageGallery">Image Gallery </Link>
-            <button onClick={register}>Sign Up</button>
-            <button onClick={login}>Sign In</button>
-            </>
-        )}
-        </nav>
+        <Fragment>
+            {userData.user ? (
+                <>
+                    <Link to="/userGallery" class="nav-link">My Gallery </Link>
+                    <Link to="/imageGallery" class="nav-link">Image Gallery </Link>
+                    <Link to="/showcase" class="nav-link">Showcase</Link>
+                    <a class="nav-link" href="#" onClick={logout}>Log Out</a>
+
+                </>
+            ) : (
+                    <>
+                        <Link to="/imageGallery" class="nav-link">Image Gallery </Link>
+                        <a class="nav-link" href="#" onClick={register}>Sign Up</a>
+                        <a class="nav-link" href="#" onClick={login}>Sign In</a>
+                    </>
+                )}
+        </Fragment>
     )
 }
