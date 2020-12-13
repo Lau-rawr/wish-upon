@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import UserContext from "../context/UserContext";
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
-//import ImageCard from '../components/imageCard';
 import UserImageCard from '../components/userImageCard';
-// import { all } from "../../backend/routes/image";
+
 
 export default function UserGallery() {
-    //const images = useRef([{}]);
     const [allImages, addImage] = useState([{}]);
     const { userData } = useContext(UserContext);
+    const history = useHistory();
 
     useEffect(() => {
         const fetchItems = async () => {
@@ -23,13 +23,28 @@ export default function UserGallery() {
     })
 
     return (
-        <div id="my-gallery">
-            {allImages.map((image, i) => {
-                // console.log(image)
-                return (
-                    <UserImageCard id="my-image-card" key={image._id} userImage={image} />
-                )
-            })}
-        </div>
+        <>
+            {userData.user !== undefined ?
+                <>
+                    <h1>{userData.user.username}'s Gallery</h1>
+                    <div class="image-gallery">
+                        {allImages.length === 0 ?
+                            <div class="btn-group" id="coloring">
+                                <button class="color-me" onClick={() => history.push('/imageGallery')}>Start coloring now!</button>
+                            </div>
+                            :
+                            <>
+                                {allImages.map((image, i) => {
+                                    return (
+                                        <UserImageCard size="small" userImage={image} />
+                                    )
+                                })}
+                            </>
+                        }
+                    </div>
+                </>
+                : "loading"}
+
+        </>
     );
 }
