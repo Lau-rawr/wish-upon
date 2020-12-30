@@ -31,7 +31,7 @@ export default function UserImageCard(props) {
             .then(async (toDelete) => {
                 if (toDelete) {
                     await axios.delete(
-                        `http://localhost:5000/user_images/${id}`,
+                        `/user_images/${id}`,
                         { headers: { "x-auth-token": userData.token } },
                     );
                 }
@@ -50,7 +50,7 @@ export default function UserImageCard(props) {
         })
         try {
             const response = await axios.post(
-                `http://localhost:5000/user_images/add/${id}`,
+                `/user_images/add/${id}`,
                 image,
                 { headers: { "x-auth-token": userData.token } },
             );

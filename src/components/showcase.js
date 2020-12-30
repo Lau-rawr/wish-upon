@@ -10,7 +10,7 @@ export default function UserGallery() {
     useEffect(() => {
         const fetchItems = async () => {
             const response = await axios.get(
-                "http://localhost:5000/user_images/"
+                "/user_images/"
             );
             addAllImages(response.data);
             // console.log(allImages);

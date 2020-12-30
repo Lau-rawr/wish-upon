@@ -25,7 +25,7 @@ export default function ColoringPage() {
             if (!fetched) {
                 const response = await axios.get(
 
-                    `http://localhost:5000/user_images/${id}`,
+                    `/user_images/${id}`,
 
                     { headers: { "x-auth-token": userData.token } },
                 );
@@ -51,7 +51,7 @@ export default function ColoringPage() {
         try {
             const response = await axios.post(
 
-                `http://localhost:5000/user_images/${id}`,
+                `/user_images/${id}`,
 
                 userImage,
                 { headers: { "x-auth-token": userData.token } },
@@ -76,7 +76,7 @@ export default function ColoringPage() {
                 if (toDelete) {
                     await axios.delete(
 
-                        `http://localhost:5000/user_images/${id}`,
+                        `/user_images/${id}`,
 
                         { headers: { "x-auth-token": userData.token } },
                     )
@@ -94,7 +94,7 @@ export default function ColoringPage() {
         try {
             const response = await axios.post(
 
-                `http://localhost:5000/user_images/add/${id}`,
+                `/user_images/add/${id}`,
 
                 userImage,
                 { headers: { "x-auth-token": userData.token } },
@@ -115,7 +115,7 @@ export default function ColoringPage() {
         try {
             const response = await axios.post(
 
-                `http://localhost:5000/user_images/${id}`,
+                `/user_images/${id}`,
 
                 userImage,
                 { headers: { "x-auth-token": userData.token } },

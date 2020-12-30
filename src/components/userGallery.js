@@ -13,7 +13,7 @@ export default function UserGallery() {
     useEffect(() => {
         const fetchItems = async () => {
             const response = await axios.get(
-                "http://localhost:5000/user_images/all",
+                "/user_images/all",
                 { headers: { "x-auth-token": userData.token } },
             );
             addImage(response.data);

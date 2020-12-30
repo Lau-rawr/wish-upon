@@ -20,7 +20,7 @@ export default function ImageCard(props) {
         console.log(newImage);
 
         const response = await axios.post(
-            "http://localhost:5000/user_images/add", 
+            "/user_images/add", 
             newImage,
             {headers: {"x-auth-token": userData.token}},
           );

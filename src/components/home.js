@@ -31,7 +31,7 @@ export default function HomePage() {
       images.map(async (image, i) => {
         console.log(image);
         const response = await axios.post(
-          "http://localhost:5000/image/add",
+          "/image/add",
           image,
         )
         console.log(response);

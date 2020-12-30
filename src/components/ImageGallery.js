@@ -12,7 +12,7 @@ export default function ImageGallery() {
     useEffect(() => {
         const fetchItems = async () => {
             const response = await axios.get(
-                "http://localhost:5000/image/all",
+                "/image/all",
             );
             addImage(response.data);
             console.log(allImages);
@@ -29,7 +29,7 @@ export default function ImageGallery() {
         let newImage = { imageId: image._id, component: image.component };
 
         const response = await axios.post(
-            "http://localhost:5000/user_images/add",
+            "/user_images/add",
             newImage,
             { headers: { "x-auth-token": userData.token } },
         );
