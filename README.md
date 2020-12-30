@@ -10,10 +10,6 @@ The website features a fun, eye-catching UI, with functionalities that are intui
 
 ## [Live Website](https://gentle-temple-93128.herokuapp.com/)
 
-## Presentation
-[Presentation Slides](https://docs.google.com/presentation/d/19h600MFxsyeE9I4tI_h0oIxHQjXbnkXEyAUlXM3nQFA/edit?usp=sharing)
-
-[Presentation Video](https://drive.google.com/file/d/1S7iilpAYd5FG5kxMpi-r65yducLMPf7F/view)
 
 ## Tech Stack
 The application is a full-stack service that is built using the MERN stack as well as external libraries and tools.
