@@ -59,45 +59,6 @@ Laura Worboys (lauraworboys)
 4. `npm run dev` in root
 5. Navigate to http://localhost:3000 to view project locally
 
-## Files Structure
-**root**
-* build files (package.json, node_modules directory, etc)
-
-**src**
-* files(App.js, App.css etc.)
-* components
-  * component files (coloringPage, imageGallery, etc)
-  * images
-    * coloring images components
-    * svgs
-  * misc
-* assets (images, patterns, etc)
-* context (userContext)
-
-**backend**
-* files (server.js, backend package.json, node_modules, etc.)
-* middleware
-* models
-* routes
-
-**public**
-  * index.html
-  * favicon, manifest, etc
-
-## Repository Structure
-| Folder | Description |
-| --- | --- |
-| docs | Design documents, proposal, slides PDFs |
-| backend | middleware, models, routes |
-| public | index.html, favicon, manifest etc |
-| src | React components, Images, CSS files etc |
-
-| Branch | Description |
-| --- | --- |
-| master | main development branch |
-| final | Heroku deployment branch |
-| other branches | specific features development |
-
 ## References
 [Preparing and coloring svgs](https://uxdesign.cc/5-steps-to-create-a-simple-digital-coloring-book-in-react-3d4f5b2af822)
 
